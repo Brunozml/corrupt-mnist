@@ -4,6 +4,9 @@ import torch
 import typer
 from torch.utils.data import Dataset
 
+import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1 import ImageGrid  # only needed for plotting
+
 
 class MyDataset(Dataset):
     """My custom dataset."""
@@ -41,8 +44,8 @@ def corrupt_mnist(data_path: Path = 'data'):
         train_targets.append(torch.load(targets_path))
 
     # concat along the first dimension to turn from list of tensors to a single tensor
-    train_images = torch.cat(train_images, dim=0)
-    train_targets = torch.cat(train_targets, dim=0)
+    train_images = torch.cat(train_images, dim=0) # shape: [N_samples, width, height]
+    train_targets = torch.cat(train_targets, dim=0) # shape: [N_samples]
 
     # load test data
     images_path = data_path / 'raw' / 'test_images.pt'
@@ -72,5 +75,22 @@ def corrupt_mnist(data_path: Path = 'data'):
 
     return train_images, train_targets, test_images, test_targets
 
+def show_image_and_target(images: torch.Tensor, target: torch.Tensor) -> None:
+    """Plot images and their labels in a grid."""
+    row_col = int(len(images) ** 0.5)
+    fig = plt.figure(figsize=(10.0, 10.0))
+    grid = ImageGrid(fig, 111, nrows_ncols=(row_col, row_col), axes_pad=0.3)
+    for ax, im, label in zip(grid, images, target):
+        ax.imshow(im.squeeze(), cmap="gray")
+        ax.set_title(f"Label: {label.item()}")
+        ax.axis("off")
+    plt.show()
+
+
 if __name__ == "__main__":
     train_images, train_targets, test_images, test_targets = corrupt_mnist()
+    print(f"Size of training set: {len(train_images)}")
+    print(f"Size of test set: {len(test_images)}")
+    print(f"Shape of a training point {(train_images[0].shape, train_targets[0].shape)}")
+    print(f"Shape of a test point {(test_images[0].shape, test_targets[0].shape)}")
+    show_image_and_target(train_images[:25], train_targets[:25])
