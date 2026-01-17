@@ -1,5 +1,9 @@
 docs/site/
 
+# data (tracked by dvc instead)
+ corruptmnist_v1/
+ data/
+
 # test cache
 manual_test/
 

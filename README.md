@@ -1,7 +1,19 @@
-````markdown
-# corrupt_mnist
+
+# ````markdown
+# corrupt MNIST
 
 End-to-end MLOps pipeline for classification of slightly harder, corrupt version of MNIST dataset.
+
+## Getting started
+Setup virtual environment with
+```
+uv sync
+```
+
+Then download the dataset by running
+```
+uv run gdown --folder 'https://drive.google.com/drive/folders/1ddWeCcsfmelqxF8sOGBihY9IU98S9JRP?usp=sharing'
+```
 
 ## Project structure
 
@@ -53,4 +65,4 @@ Created using [mlops_template](https://github.com/SkafteNicki/mlops_template),
 a [cookiecutter template](https://github.com/cookiecutter/cookiecutter) for getting
 started with Machine Learning Operations (MLOps).
 
-````
+# ````
