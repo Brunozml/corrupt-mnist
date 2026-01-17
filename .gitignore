@@ -4,7 +4,7 @@ docs/site/
 corruptmnist_v1/
 data/
 raw/
-# models/
+models/
 
 # test cache
 manual_test/
