@@ -1,8 +1,10 @@
 docs/site/
 
-# data (tracked by dvc instead)
+# data and models (tracked by dvc instead)
 corruptmnist_v1/
 data/
+raw/
+# models/
 
 # test cache
 manual_test/
