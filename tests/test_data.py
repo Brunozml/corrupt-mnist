@@ -52,9 +52,41 @@ def test_normalize_shape_preserved():
         assert normalized.shape == test_tensor.shape
 
 
+def test_corrupt_mnist_saves_files(tmp_path):
+    """Test that corrupt_mnist saves processed files correctly."""
+    # Create raw data directory with mock files
+    raw_path = tmp_path / "raw"
+    raw_path.mkdir()
+    
+    # Create dummy train files (6 files)
+    for i in range(6):
+        torch.save(torch.randn(100, 28, 28), raw_path / f"train_images_{i}.pt")
+        torch.save(torch.randint(0, 10, (100,)), raw_path / f"train_target_{i}.pt")
+    
+    # Create dummy test files
+    torch.save(torch.randn(50, 28, 28), raw_path / "test_images.pt")
+    torch.save(torch.randint(0, 10, (50,)), raw_path / "test_target.pt")
+    
+    # Call corrupt_mnist
+    train, test = corrupt_mnist(tmp_path)
+    
+    # Assert processed folder exists
+    processed_path = tmp_path / "processed"
+    assert processed_path.exists()
+    
+    # Assert all files are saved
+    assert (processed_path / "train_images.pt").exists()
+    assert (processed_path / "train_target.pt").exists()
+    assert (processed_path / "test_images.pt").exists()
+    assert (processed_path / "test_target.pt").exists()
+    
+    # Assert tensors have correct shape
+    assert train.tensors[0].shape == (600, 1, 28, 28)  # 6 files * 100 samples
+    assert test.tensors[0].shape == (50, 1, 28, 28)
 
 if __name__ == "__main__":
     test_data()
     test_normalize()
     test_normalize_shape_preserved()
+    test_corrupt_mnist_saves_files(tempfile.TemporaryDirectory().name)
     print("All tests passed!")
