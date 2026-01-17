@@ -4,9 +4,10 @@ from corrupt_mnist.model import Model
 from corrupt_mnist.data import corrupt_mnist
 import torch
 from omegaconf import OmegaConf
-# loading
 
-config = OmegaConf.load('config.yaml')
+model_config = OmegaConf.load('configs/model_conf.yaml')
+training_config = OmegaConf.load('configs/training_conf.yaml')
+config = OmegaConf.merge(model_config, training_config)
 
 
 # specify training device 

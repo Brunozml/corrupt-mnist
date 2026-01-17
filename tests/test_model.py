@@ -309,3 +309,37 @@ def test_model_conv_layer_specifications():
         # Flatten -> FC -> output
         x = torch.flatten(x, 1)
         assert x.shape == (1, 128)
+
+
+def test_model_can_overfit_single_batch():
+    """Test that model can overfit to a single batch (sanity check)."""
+    DEVICE = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
+    model = Model().to(DEVICE)
+    
+    #set epochs to 500
+    epochs = 200
+
+    # Create one batch
+    x = torch.rand(64, 1, 28, 28)
+    y = torch.randint(0, 10, (64,))
+    
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
+    loss_fn = torch.nn.CrossEntropyLoss()
+    
+    initial_loss = None
+    
+    for _ in range(epochs):
+        optimizer.zero_grad()
+        out = model(x.to(DEVICE))
+        loss = loss_fn(out, y.to(DEVICE))
+        loss.backward()
+        optimizer.step()
+        
+        if initial_loss is None:
+            initial_loss = loss.item()
+    
+    final_loss = loss.item()
+    
+    # Loss should decrease significantly (at least 50%)
+    assert final_loss < initial_loss * 0.5, \
+        f"Model didn't overfit: {initial_loss:.4f} -> {final_loss:.4f}"
