@@ -8,24 +8,30 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import ImageGrid  # only needed for plotting
 
 
-class MyDataset(Dataset):
-    """My custom dataset."""
+# class MyDataset(Dataset):
+#     """My custom dataset."""
 
-    def __init__(self, data_path: Path) -> None:
-        self.data_path = data_path
+#     def __init__(self, data_path: Path) -> None:
+#         self.data_path = data_path
 
-    def __len__(self) -> int:
-        """Return the length of the dataset."""
-        ...
+#     def __len__(self) -> int:
+#         """Return the length of the dataset."""
+#         ...
 
-    def __getitem__(self, index: int):
-        """Return a given sample from the dataset."""
+#     def __getitem__(self, index: int):
+#         """Return a given sample from the dataset."""
 
 
-def preprocess(data_path: Path, output_folder: Path) -> None:
-    print("Preprocessing data...")
-    dataset = MyDataset(data_path)
-    dataset.preprocess(output_folder)
+
+# def preprocess(data_path: Path, output_folder: Path) -> None:
+#     print("Preprocessing data...")
+#     dataset = MyDataset(data_path)
+#     dataset.preprocess(output_folder)
+
+
+def normalize(images):
+    """ Normalize images to have zero mean and unit variance """
+    return (images - images.mean()) / images.std()
 
 def corrupt_mnist(data_path: Path = 'data'):
     """Return train and test datasets for corrupt MNIST."""
@@ -56,6 +62,10 @@ def corrupt_mnist(data_path: Path = 'data'):
     if not targets_path.exists():
         raise FileNotFoundError(f"Test targets not found at {targets_path}")
     test_targets = torch.load(targets_path)
+
+    # normalize images
+    train_images = normalize(train_images) # shape: [N_samples, width, height]
+    test_images = normalize(test_images) # shape: [N_samples, width, height]
     
     # unsqueeze images from [N_samples , width, height] to [N_samples, 1, width, height]
     train_images = train_images.unsqueeze(dim=1) 
@@ -73,7 +83,11 @@ def corrupt_mnist(data_path: Path = 'data'):
     torch.save(test_images, processed_path / 'test_images.pt')
     torch.save(test_targets, processed_path / 'test_target.pt')
 
-    return train_images, train_targets, test_images, test_targets
+        # convert to tensor dataset 
+    train = torch.utils.data.TensorDataset(train_images, train_targets)
+    test = torch.utils.data.TensorDataset(test_images, test_targets)
+
+    return train, test
 
 def show_image_and_target(images: torch.Tensor, target: torch.Tensor) -> None:
     """Plot images and their labels in a grid."""
@@ -88,9 +102,9 @@ def show_image_and_target(images: torch.Tensor, target: torch.Tensor) -> None:
 
 
 if __name__ == "__main__":
-    train_images, train_targets, test_images, test_targets = corrupt_mnist()
-    print(f"Size of training set: {len(train_images)}")
-    print(f"Size of test set: {len(test_images)}")
-    print(f"Shape of a training point {(train_images[0].shape, train_targets[0].shape)}")
-    print(f"Shape of a test point {(test_images[0].shape, test_targets[0].shape)}")
-    show_image_and_target(train_images[:25], train_targets[:25])
+    train, test = corrupt_mnist()
+    print(f"Size of training set: {len(train)}")
+    print(f"Size of test set: {len(test)}")
+    print(f"Shape of a training point {(train[0][0].shape, train[0][1].shape)}")
+    print(f"Shape of a test point {(test[0][0].shape, test[0][1].shape)}")
+    show_image_and_target(train.tensors[0][:25], train.tensors[1][:25])
