@@ -39,6 +39,14 @@ jobs:
         run: |
           uv sync --dev --locked
 
+      - name: Cache DVC data
+        uses: actions/cache@v4
+        with:
+          path: .dvc/cache
+          key: dvc-${{ runner.os }}-${{ hashFiles('data.dvc') }}
+          restore-keys: |
+            dvc-${{ runner.os }}-
+
       - name: Pull data with DVC
         run: |
           uv run dvc pull
