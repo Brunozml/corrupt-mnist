@@ -1,3 +1,12 @@
+"""
+
+test locally with:
+    docker run -v ~/.config/gcloud:/root/.config/gcloud:ro \
+  -e GOOGLE_CLOUD_PROJECT=corrupt-mnist-26 \
+  train:latest
+"""
+
+
 import os
 
 from corrupt_mnist.model import Model

@@ -5,15 +5,31 @@ outs:
   - relpath: processed/test_images.pt
     md5: d7fa2869988dd4b68088ad301f32d142
     size: 15681605
+    cloud:
+      remote_storage:
+        etag: 08c0ed84dafd9792031001
+        version_id: '1768838714701504'
   - relpath: processed/test_target.pt
     md5: 38cec2fdb1e3243dd0a158e77ff97a24
     size: 81605
+    cloud:
+      remote_storage:
+        etag: 089994c2d8fd9792031001
+        version_id: '1768838711511577'
   - relpath: processed/train_images.pt
     md5: b703f561963a7f706ec907515391400a
     size: 94081612
+    cloud:
+      remote_storage:
+        etag: 08f5cbbdddfd9792031001
+        version_id: '1768838721922549'
   - relpath: processed/train_target.pt
     md5: 6bca49ff25be598193d0d7b8d1292d63
     size: 241612
+    cloud:
+      remote_storage:
+        etag: 08c1dddad8fd9792031001
+        version_id: '1768838711914177'
   - relpath: raw/test_images.pt
     md5: dbaef582b7c62889340e79e408b1eb81
     size: 15680759
