@@ -34,7 +34,7 @@
 ### S3 Reproducibility :star: :star: :star:
 
 - [ ] **M10 Docker.\***
-  - [ ] Set up docker image for `train.py`
+  - [X] Set up docker image for `train.py`
   - [ ] Set up docker image for inference
 - [x] **M11 Config files**
   - [~] Config file for model
@@ -75,7 +75,7 @@
   - [ ] ~ Record most useful commands in some sort of notes for this repo.
 - [~] **M21 Cloud Services.**
   - [x] Setup Bucket with DVC
-  - [ ] Setup `Artifact Registry` and `Build` services. Requires M10.
+  - [X] Setup `Artifact Registry` and `Build` services. Requires M10.
   - [ ] ~ Integrate `Build` with Github Actions
   - [ ] Setup `Compute Engine`, i.e. VM, and run raw code.
   - [ ] ~ Vertex AI for training.
@@ -118,3 +118,4 @@
   - [ ] CODEX and other CLIs for AIs
   - [] Research THE keyboard setup for seamless transition between Mac and Windows.
   - [] Patience to improve reading documentation.
+  - [] ~ `buildx` or similar for building in specific architectures on google cloud?
