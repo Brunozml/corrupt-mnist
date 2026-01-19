@@ -22,7 +22,7 @@ def evaluate(
 
     # load the model (note: for docker build using CPI explicitly)
     model = Model().to(DEVICE)
-    model.load_state_dict(torch.load(model_checkpoint))
+    model.load_state_dict(torch.load(model_checkpoint, map_location='cpu'))
 
     # set model to evaluation mode
     _, test_set = corrupt_mnist(Path(data_path))

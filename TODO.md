@@ -27,15 +27,16 @@
   - [x] DVC integrated Github Actions for `test_data.py`
   - [ ] DVC integrated Github actions for `test_model.py`
 - [ ] **M9 CLIs.**
-  - [ ] `typer` CLI for python scripts
+  - [~] `typer` CLI for python scripts
+    - [x] `evaluate.py`
   - [ ] `invoke` CLI for Non-python code
 - [ ] _EXTRA: `visualization.py`_
 
 ### S3 Reproducibility :star: :star: :star:
 
 - [ ] **M10 Docker.\***
-  - [X] Set up docker image for `train.py`
-  - [ ] Set up docker image for inference
+  - [x] Set up docker image for `train.py`
+  - [x] Set up docker image for inference
 - [x] **M11 Config files**
   - [~] Config file for model
   - [x] Config file for training
@@ -75,7 +76,7 @@
   - [ ] ~ Record most useful commands in some sort of notes for this repo.
 - [~] **M21 Cloud Services.**
   - [x] Setup Bucket with DVC
-  - [X] Setup `Artifact Registry` and `Build` services. Requires M10.
+  - [x] Setup `Artifact Registry` and `Build` services. Requires M10.
   - [ ] ~ Integrate `Build` with Github Actions
   - [ ] Setup `Compute Engine`, i.e. VM, and run raw code.
   - [ ] ~ Vertex AI for training.
