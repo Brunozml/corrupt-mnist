@@ -3,33 +3,17 @@ outs:
   path: data
   files:
   - relpath: processed/test_images.pt
-    md5: 6da80f9bfafe68165916d504ebff2828
-    size: 15681200
-    cloud:
-      remote_storage:
-        etag: 08f0c789cfd09292031001
-        version_id: '1768654813422576'
+    md5: d7fa2869988dd4b68088ad301f32d142
+    size: 15681605
   - relpath: processed/test_target.pt
-    md5: 4772676697fef9d0d73f999507f4c02a
-    size: 81200
-    cloud:
-      remote_storage:
-        etag: 08bdc898cfd09292031001
-        version_id: '1768654813668413'
+    md5: 38cec2fdb1e3243dd0a158e77ff97a24
+    size: 81605
   - relpath: processed/train_images.pt
-    md5: f68b1d893d4d2c1aa860efad0a573a66
-    size: 94081205
-    cloud:
-      remote_storage:
-        etag: 08eed5b9d5d09292031001
-        version_id: '1768654826793710'
+    md5: b703f561963a7f706ec907515391400a
+    size: 94081612
   - relpath: processed/train_target.pt
-    md5: 3dcaa7b344f58f285a1cdc644458a6bd
-    size: 241205
-    cloud:
-      remote_storage:
-        etag: 0883c9b7cfd09292031001
-        version_id: '1768654814176387'
+    md5: 6bca49ff25be598193d0d7b8d1292d63
+    size: 241612
   - relpath: raw/test_images.pt
     md5: dbaef582b7c62889340e79e408b1eb81
     size: 15680759
