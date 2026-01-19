@@ -1,7 +1,16 @@
 """
 
-test locally with:
+Assuming open access, test locally with:
     docker run -v ~/.config/gcloud:/root/.config/gcloud:ro \
+  -e GOOGLE_CLOUD_PROJECT=corrupt-mnist-26 \
+  train:latest
+
+  with local keyfile:
+  export GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/keyfile.json
+  then run:
+  docker run \
+  -v $GOOGLE_APPLICATION_CREDENTIALS:/root/gcp-key.json:ro \
+  -e GOOGLE_APPLICATION_CREDENTIALS=/root/gcp-key.json \
   -e GOOGLE_CLOUD_PROJECT=corrupt-mnist-26 \
   train:latest
 """
