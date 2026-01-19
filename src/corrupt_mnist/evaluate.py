@@ -1,23 +1,31 @@
-
+from pathlib import Path
+from typing import Annotated
 import torch
 import typer
+
 from data import corrupt_mnist
 from model import Model
 
+app = typer.Typer()
+
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
 
-
-def evaluate_model(model_checkpoint: str) -> None:
+@app.command()
+def evaluate(
+    model_checkpoint: Annotated[str, typer.Option("--model-checkpoint", "-model")],
+    data_path: Annotated[str, typer.Option("--data-path", "-data")] = 'data'
+    ) -> None:
     """Evaluate a trained model."""
     print("Evaluating like my life depends on it")
-    print(model_checkpoint)
+    print("Model checkpoint:", model_checkpoint)
+    print("Data path:" , data_path)
 
-    # TODO: Implement evaluation logic here
+    # load the model (note: for docker build using CPI explicitly)
     model = Model().to(DEVICE)
     model.load_state_dict(torch.load(model_checkpoint))
 
     # set model to evaluation mode
-    _, test_set = corrupt_mnist()
+    _, test_set = corrupt_mnist(Path(data_path))
 
     # instantiate data loader object
     dataloader = torch.utils.data.DataLoader(test_set, batch_size=32)
@@ -42,6 +50,5 @@ def evaluate_model(model_checkpoint: str) -> None:
     print("Total samples:", total)
     print("Correct predictions:", correct)
 
-
 if __name__ == "__main__":
-    typer.run(evaluate_model)
+    app()

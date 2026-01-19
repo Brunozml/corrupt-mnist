@@ -611,7 +611,7 @@ requires-dist = [
     { name = "pandas", specifier = ">=2.3.3" },
     { name = "pathspec", specifier = ">=0.12.1" },
     { name = "torch", specifier = ">=2.6.0", index = "https://download.pytorch.org/whl/cpu" },
-    { name = "typer", specifier = ">=0.16.0" },
+    { name = "typer", specifier = ">=0.21.1" },
     { name = "uvicorn", specifier = "==0.34.0" },
 ]
 
