@@ -4,9 +4,7 @@ https://docs.cloud.google.com/storage/docs/downloading-objects#storage-download-
 """
 
 
-def download_bucket_with_transfer_manager(
-    bucket_name, destination_directory="", workers=8, max_results=1000
-):
+def download_bucket_with_transfer_manager(bucket_name, destination_directory="", workers=8, max_results=1000):
     """Download all of the blobs in a bucket, concurrently in a process pool.
 
     The filename of each blob once downloaded is derived from the blob name and
@@ -21,21 +19,21 @@ def download_bucket_with_transfer_manager(
     storage_client = Client()
     bucket = storage_client.bucket(bucket_name)
 
-    blob_names = [blob.name for blob in bucket.list_blobs(max_results=max_results,
-                                                          prefix='data/')]
+    blob_names = [blob.name for blob in bucket.list_blobs(max_results=max_results, prefix="data/")]
 
     results = transfer_manager.download_many_to_path(
         bucket, blob_names, destination_directory=destination_directory, max_workers=workers
     )
 
-    for name, result in zip(blob_names, results):
+    for name, result in zip(blob_names, results, strict=True):
         # The results list is either `None` or an exception for each blob in
         # the input list, in order.
 
         if isinstance(result, Exception):
-            print("Failed to download {} due to exception: {}".format(name, result))
+            print(f"Failed to download {name} due to exception: {result}")
         else:
-            print("Downloaded {} to {}.".format(name, destination_directory + name))
+            print(f"Downloaded {name} to {destination_directory + name}.")
+
 
 if __name__ == "__main__":
     download_bucket_with_transfer_manager(
