@@ -4,7 +4,7 @@ docs/site/
 # old data and models (tracked by dvc instead)
 models/
 corruptmnist_v1/
-data/
+
 # test cache
 manual_test/
 
