@@ -41,6 +41,54 @@ def train(
     models_path="models/",
     seed=config["hyperparameters"]["seed"],
 ):
+    """Train a CNN model on the corrupt MNIST dataset.
+
+    This function implements a standard supervised learning training loop:
+    1. Loads the corrupt MNIST dataset
+    2. Initializes the model and moves it to the appropriate device (CPU/GPU/MPS)
+    3. Sets up Adam optimizer and CrossEntropy loss
+    4. Trains for the specified number of epochs
+    5. Saves the trained model weights to disk
+
+    The training process follows the standard PyTorch training pattern:
+    - Forward pass: compute predictions
+    - Compute loss: compare predictions to ground truth
+    - Backward pass: compute gradients via backpropagation
+    - Optimizer step: update model weights
+
+    Args:
+        lr (float, optional): Learning rate for the Adam optimizer.
+            Defaults to value from config file.
+        batch_size (int, optional): Number of samples per training batch.
+            Larger batches train faster but use more memory.
+            Defaults to value from config file.
+        epochs (int, optional): Number of complete passes through the training dataset.
+            Defaults to value from config file.
+        models_path (str, optional): Directory path where the trained model will be saved.
+            Directory is created if it doesn't exist. Defaults to "models/".
+        seed (int, optional): Random seed for reproducibility. If provided, sets
+            torch.manual_seed() to ensure deterministic training runs.
+            Defaults to value from config file.
+
+    Returns:
+        None. Side effects include:
+            - Prints training progress (hyperparameters, loss every 100 iterations)
+            - Saves model state dict to {models_path}/model.pth
+            - Creates models_path directory if it doesn't exist
+
+    Notes:
+        - Uses the global DEVICE constant to determine hardware acceleration
+        - Training statistics (loss, accuracy) are tracked but not returned
+        - Model is saved in PyTorch's state_dict format (.pth file)
+        - For reproducibility in MLOps pipelines, always set a seed value
+
+    Example:
+        >>> # Train with default config values
+        >>> train()
+        >>>
+        >>> # Train with custom hyperparameters
+        >>> train(lr=0.001, batch_size=32, epochs=10, seed=42)
+    """
     # print out hyperparameters
     print(f"Learning Rate: {lr}")
     print(f"Batch Size: {batch_size}")
