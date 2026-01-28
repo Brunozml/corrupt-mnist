@@ -1,0 +1,25 @@
+outs:
+- hash: md5
+  path: models
+  files:
+  - relpath: .gitkeep
+    md5: d41d8cd98f00b204e9800998ecf8427e
+    size: 0
+    cloud:
+      remote_storage:
+        etag: 08bce2bed8fd9792031001
+        version_id: '1768838711456060'
+  - relpath: model.pth
+    md5: c2b8dd8804da4f458218534df4b6adc9
+    size: 378929
+    cloud:
+      remote_storage:
+        etag: 08b7abdcd8fd9792031001
+        version_id: '1768838711940535'
+  - relpath: overfit_test_checkpoint.pth
+    md5: 553ce38e26a9c4cf9e49abba8fce461d
+    size: 379693
+    cloud:
+      remote_storage:
+        etag: 08e4e1afd8fd9792031001
+        version_id: '1768838711210212'

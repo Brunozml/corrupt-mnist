@@ -1,32 +1,21 @@
-from torch import nn
 import torch
+from torch import nn
+
 
 class Model(nn.Module):
     """
-    Convolutional Neural Network with 3 convolutional layers, 
+    Convolutional Neural Network with 3 convolutional layers,
     one fully connected layer, max_pooling, and relu activation functions.
     """
+
     def __init__(self):
         super().__init__()
-        self.conv1 = nn.Conv2d(in_channels=1,
-                               out_channels=32,
-                               kernel_size=3,
-                               stride=1
-                    )
-        self.conv2 = nn.Conv2d(in_channels=32,
-                               out_channels=64,
-                               kernel_size=3,
-                               stride=1
-                    )
-        self.conv3 = nn.Conv2d(in_channels=64,
-                               out_channels=128,
-                               kernel_size=3,
-                               stride=1
-                    )
-        
+        self.conv1 = nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, stride=1)
+        self.conv2 = nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, stride=1)
+        self.conv3 = nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, stride=1)
+
         self.dropout = nn.Dropout(p=0.2)
         self.fc1 = nn.Linear(in_features=128, out_features=10)
-
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Forward pass.
@@ -54,13 +43,13 @@ class Model(nn.Module):
         # After dropout: (N, 128)
         x = self.dropout(x)
         # Final linear layer to logits: (N, 10)
-        return self.fc1(x)
-    
+        return self.fc1(x)  # type: ignore[no-any-return]  # PyTorch nn.Linear typing limitation
+
 
 if __name__ == "__main__":
     model = Model()
     print(f"Model Architecture: {model}")
     print(f"Number of parameters: {sum(p.numel() for p in model.parameters())}")
 
-    x = torch.rand(1,1,28,28)
+    x = torch.rand(1, 1, 28, 28)
     print(f"Output shape of model: {model(x).shape}")
