@@ -2,7 +2,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import torch
-from mpl_toolkits.axes_grid1 import ImageGrid  # only needed for plotting
+from mpl_toolkits.axes_grid1 import ImageGrid  # type: ignore # only needed for plotting
 
 # class MyDataset(Dataset):
 #     """My custom dataset."""
@@ -29,35 +29,36 @@ def normalize(images):
     return (images - images.mean()) / images.std()
 
 
-def corrupt_mnist(data_path: Path = "data"):
+def corrupt_mnist(data_path: Path | str = "data"):
     """Return train and test datasets for corrupt MNIST."""
     data_path = Path(data_path)
 
     # load train data
-    train_images, train_targets = [], []
+    train_images_list: list[torch.Tensor] = []
+    train_targets_list: list[torch.Tensor] = []
     for i in range(6):
         images_path = data_path / "raw" / f"train_images_{i}.pt"
         targets_path = data_path / "raw" / f"train_target_{i}.pt"
         if not images_path.exists():
             raise FileNotFoundError(f"Train data not found at {images_path}")
-        train_images.append(torch.load(images_path))
+        train_images_list.append(torch.load(images_path))
         if not targets_path.exists():
             raise FileNotFoundError(f"Train targets not found at {targets_path}")
-        train_targets.append(torch.load(targets_path))
+        train_targets_list.append(torch.load(targets_path))
 
     # concat along the first dimension to turn from list of tensors to a single tensor
-    train_images = torch.cat(train_images, dim=0)  # shape: [N_samples, width, height]
-    train_targets = torch.cat(train_targets, dim=0)  # shape: [N_samples]
+    train_images: torch.Tensor = torch.cat(train_images_list, dim=0)  # shape: [N_samples, width, height]
+    train_targets: torch.Tensor = torch.cat(train_targets_list, dim=0)  # shape: [N_samples]
 
     # load test data
     images_path = data_path / "raw" / "test_images.pt"
     targets_path = data_path / "raw" / "test_target.pt"
     if not images_path.exists():
         raise FileNotFoundError(f"Test data not found at {images_path}")
-    test_images = torch.load(images_path)
+    test_images: torch.Tensor = torch.load(images_path)
     if not targets_path.exists():
         raise FileNotFoundError(f"Test targets not found at {targets_path}")
-    test_targets = torch.load(targets_path)
+    test_targets: torch.Tensor = torch.load(targets_path)
 
     # normalize images
     train_images = normalize(train_images)  # shape: [N_samples, width, height]

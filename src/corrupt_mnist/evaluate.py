@@ -3,9 +3,9 @@ from typing import Annotated
 
 import torch
 import typer
-from model import Model
 
-from data import corrupt_mnist
+from corrupt_mnist.data import corrupt_mnist
+from corrupt_mnist.model import Model
 
 app = typer.Typer()
 

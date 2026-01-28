@@ -186,7 +186,7 @@ def overfit_test(
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     loss_function = torch.nn.CrossEntropyLoss()
 
-    statistics = {"train_loss": [], "train_accuracy": []}
+    statistics: dict[str, list[float]] = {"train_loss": [], "train_accuracy": []}
 
     for epoch in range(epochs):
         for img, target in batches:

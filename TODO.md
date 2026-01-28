@@ -17,9 +17,10 @@
   - [x] Set Up MLOps cookiecutter template.
   - [ ] ~ Read up, understand `Agents.md` and modify.
   - [ ] ~ Create own Cookiecutter template for other stuff
-- [ ] **M7 Good coding practice.\*\***
-  - [ ] `ruff` for styling
-  - [ ] `Typing` data type hints.
+- [~] **M7 Good coding practice.\*\***
+  - [~] `ruff` for styling
+  - [~] `Typing` data type hints.
+  - [x] `mypy` for static type checking. Tells when types are incompatible. 
 - [x] **M8 DVC.**
   - [x] Setup data version control on Google Cloud.
   - [x] DVC for `data/`
