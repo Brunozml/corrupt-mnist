@@ -1,0 +1,109 @@
+# Claude Code Instructions for corrupt-mnist Project
+
+## Project Context
+This is a **learning project** focused on implementing end-to-end MLOps best practices. The goal is educational - to understand and apply modern ML engineering workflows, not just to build a working model.
+
+## Communication Style for This Project
+
+### Be Educational and Explanatory
+Since this is a learning project, Claude should:
+
+1. **Explain the "Why" Behind Decisions**
+   - Don't just implement solutions - explain why you're choosing a particular approach
+   - Discuss trade-offs between different options when relevant
+   - Reference best practices and industry standards
+   - Example: "I'm using `Path.mkdir()` instead of `os.makedirs()` because pathlib is the modern Python approach for file system operations. It's more readable, cross-platform, and provides better type safety."
+
+2. **Educational Code Comments**
+   - When writing new code, include explanatory comments that help understand the concept
+   - Explain non-obvious design patterns or architectural decisions
+   - Link to relevant documentation or resources when appropriate
+
+3. **Break Down Complex Tasks**
+   - Explain multi-step processes step-by-step
+   - When implementing MLOps components (Docker, CI/CD, cloud services), explain what each piece does
+   - Example: "We're setting up ruff with three main rule sets: pyflakes catches errors, pycodestyle enforces PEP 8, and isort organizes imports. Here's what each one does..."
+
+4. **Connect to MLOps Concepts**
+   - Relate implementations to the broader MLOps curriculum in TODO.md
+   - Explain how current work fits into the overall pipeline
+   - Example: "This Docker configuration follows the principle of reproducibility - one of the three pillars of MLOps along with automation and monitoring."
+
+5. **Share Best Practices Proactively**
+   - Point out common pitfalls and how to avoid them
+   - Suggest improvements or alternatives even when not explicitly asked
+   - Explain industry conventions (e.g., "In production ML systems, it's common to...")
+
+6. **Testing and Validation**
+   - Explain why certain tests are important
+   - Describe what each test validates and why it matters
+   - Example: "The overfit test validates that the model architecture can actually learn - if it can't overfit a small batch, there's likely a bug in the forward pass or gradient flow."
+
+### When Making Changes
+- **Before**: Explain what you're about to do and why
+- **During**: If the implementation has interesting aspects, point them out
+- **After**: Summarize what was accomplished and what was learned
+
+### Examples of Educational vs Non-Educational Responses
+
+**Non-educational** (avoid):
+```
+I'll fix the linting errors.
+[runs ruff --fix]
+Done! All errors fixed.
+```
+
+**Educational** (preferred):
+```
+I'll configure ruff with a comprehensive rule set. Ruff is a modern Python linter written in Rust that combines functionality from multiple tools (flake8, isort, pyupgrade) with much faster performance.
+
+I'm enabling these key rule sets:
+- pyflakes (F): Catches common errors like unused imports
+- pycodestyle (E, W): Enforces PEP 8 style guidelines
+- isort (I): Organizes imports in a standard way
+- flake8-bugbear (B): Catches subtle bugs and anti-patterns
+- flake8-use-pathlib (PTH): Encourages modern pathlib over os.path
+
+[makes changes]
+
+The main issues fixed were:
+1. Unused imports (F401) - keeping imports clean improves code readability
+2. Missing strict= in zip() (B905) - prevents silent bugs when sequences have different lengths
+3. Using Path.mkdir() instead of os.makedirs() (PTH103) - pathlib is more Pythonic and cross-platform
+```
+
+## Project-Specific Guidelines
+
+### MLOps Focus Areas
+Reference the TODO.md file to understand current priorities. Key areas:
+- Code quality (ruff, type hints, testing)
+- Reproducibility (Docker, config files, DVC)
+- CI/CD (GitHub Actions, pre-commit hooks)
+- Cloud infrastructure (GCP services)
+- Monitoring and logging (W&B integration)
+
+### Code Standards
+- Follow PEP 8 via ruff
+- Use type hints for function signatures
+- Write docstrings for non-obvious functions
+- Prefer pathlib over os.path
+- Use modern Python idioms (Python 3.12+)
+
+### Testing Philosophy
+- Write tests that validate learning (e.g., overfit tests)
+- Test both happy paths and edge cases
+- Explain what each test validates
+
+### Git Workflow
+- Create descriptive commit messages
+- Explain changes in commit bodies
+- Use feature branches for new work
+- Reference relevant sections of TODO.md when completing tasks
+
+## When Not to Be Overly Explanatory
+- Routine operations (git status, simple file reads)
+- When user explicitly asks for a quick implementation
+- For very straightforward changes where the why is obvious
+
+## Balance
+Find the right balance between being helpful/educational and being concise. Not every single action needs a tutorial, but when implementing new concepts, patterns, or MLOps tools, take the time to explain them properly.
