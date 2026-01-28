@@ -241,7 +241,7 @@ def test_model_zero_grad():
 
     # After zero_grad(), gradients should be cleared (set to None)
     assert model.conv1.weight.grad is None
-    assert model.fc1.weight.grad is None
+    assert model.fc1.weight.grad is None  # type: ignore[unreachable]  # Mypy type narrowing false positive
 
 
 def test_model_with_batch_norm():
@@ -341,4 +341,5 @@ def test_model_can_overfit_single_batch():
     final_loss = loss.item()
 
     # Loss should decrease significantly (at least 50%)
+    assert initial_loss is not None  # Ensure initial_loss was set in the loop
     assert final_loss < initial_loss * 0.5, f"Model didn't overfit: {initial_loss:.4f} -> {final_loss:.4f}"

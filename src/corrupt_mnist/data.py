@@ -2,7 +2,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import torch
-from mpl_toolkits.axes_grid1 import ImageGrid  # type: ignore # only needed for plotting
+from mpl_toolkits.axes_grid1 import ImageGrid  # only needed for plotting
 
 # class MyDataset(Dataset):
 #     """My custom dataset."""

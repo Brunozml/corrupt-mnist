@@ -14,7 +14,7 @@ def download_bucket_with_transfer_manager(bucket_name, destination_directory="",
     Directories will be created automatically as needed, for instance to
     accommodate blob names that include slashes.
     """
-    from google.cloud.storage import Client, transfer_manager  # type: ignore
+    from google.cloud.storage import Client, transfer_manager
 
     storage_client = Client()
     bucket = storage_client.bucket(bucket_name)

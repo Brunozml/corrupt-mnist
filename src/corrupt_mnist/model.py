@@ -43,7 +43,7 @@ class Model(nn.Module):
         # After dropout: (N, 128)
         x = self.dropout(x)
         # Final linear layer to logits: (N, 10)
-        return self.fc1(x)
+        return self.fc1(x)  # type: ignore[no-any-return]  # PyTorch nn.Linear typing limitation
 
 
 if __name__ == "__main__":

@@ -35,12 +35,12 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.ba
 
 # Hyperparameters
 def train(
-    lr=config["hyperparameters"]["lr"],
-    batch_size=config["hyperparameters"]["batch_size"],
-    epochs=config["hyperparameters"]["epochs"],
-    models_path="models/",
-    seed=config["hyperparameters"]["seed"],
-):
+    lr=config["hyperparameters"]["lr"],  # type: ignore[index]  # OmegaConf DictConfig typing
+    batch_size=config["hyperparameters"]["batch_size"],  # type: ignore[index]
+    epochs=config["hyperparameters"]["epochs"],  # type: ignore[index]
+    models_path: str = "models/",
+    seed=config["hyperparameters"]["seed"],  # type: ignore[index]
+) -> None:
     """Train a CNN model on the corrupt MNIST dataset.
 
     This function implements a standard supervised learning training loop:
@@ -113,7 +113,7 @@ def train(
     loss_function = torch.nn.CrossEntropyLoss()
 
     # record training statistics for later use
-    statistics = {"train_loss": [], "train_accuracy": []}
+    statistics: dict[str, list[float]] = {"train_loss": [], "train_accuracy": []}
 
     # outer epoch loop
     for epoch in range(epochs):
